@@ -4,12 +4,16 @@ import {HoneypotSshServerIntegration} from "./src/Integrations/HoneypotSshServer
 import {fileURLToPath} from 'url';
 import {dirname, resolve} from 'path';
 import {HoneypotSmtpServerIntegration} from "./src/Integrations/HoneypotSmtpServerIntegration.js";
+import {HoneypotTelnetServerIntegration} from "./src/Integrations/HoneypotTelnetServerIntegration.js";
+import {HoneypotMySQLServerIntegration} from "./src/Integrations/HoneypotMySQLServerIntegration.js";
 
 const config = readConfig(resolve(dirname(fileURLToPath(import.meta.url)), '.env.json'))
 
 const integrationMap = {
   HoneypotSshServerIntegration,
-  HoneypotSmtpServerIntegration
+  HoneypotSmtpServerIntegration,
+  HoneypotTelnetServerIntegration,
+  HoneypotMySQLServerIntegration
 }
 
 /**
