@@ -14,8 +14,8 @@ export class HoneypotServer {
    */
   #integrations = []
 
-  blacklist = new IPList()
-  whitelist = new IPList()
+  #blacklist
+  #whitelist
 
   /**
    * @type {HoneypotServerConfig}
@@ -34,6 +34,20 @@ export class HoneypotServer {
     config ??= {}
     this.#integrations = abstractHoneypotIntegration
     this.#config = mergeConfigs(this.#config, config)
+  }
+
+  /**
+   * @return {IPList}
+   */
+  get blacklist() {
+    return this.#blacklist ??= this.#config.blacklist ?? new IPList()
+  }
+
+  /**
+   * @return {IPList}
+   */
+  get whitelist() {
+    return this.#whitelist ??= this.#config.whitelist ?? new IPList()
   }
 
   /**
@@ -64,14 +78,14 @@ export class HoneypotServer {
       const keys = this.blacklist.ipV4
       for (const key of keys) {
         const timestamp = this.blacklist.getIpV4Timestamp(key)
-        if (timestamp + this.#config.banDurationMs <= now) {
+        if (timestamp !== true && timestamp <= now) {
           this.blacklist.del(key)
         }
       }
 
       for (const key of this.blacklist.ipV6) {
         const timestamp = this.blacklist.getIpV6Timestamp(key)
-        if (timestamp <= now) {
+        if (timestamp !== true && timestamp <= now) {
           this.blacklist.del(key)
         }
       }

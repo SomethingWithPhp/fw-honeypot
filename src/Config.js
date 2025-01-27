@@ -2,13 +2,16 @@ import {readFileSync} from "node:fs";
 
 /**
  * @param {string} path
+ * @param {boolean} [ignoreError=false]
  * @return {HoneypotEnvironmentConfig}
  */
-export const readConfig = (path) => {
+export const readConfig = (path, ignoreError = false) => {
   try {
     return JSON.parse(readFileSync(path, 'utf8'))
   } catch (e) {
-    console.error(e)
+    if (!ignoreError) {
+      console.error(e)
+    }
   }
   return {}
 }

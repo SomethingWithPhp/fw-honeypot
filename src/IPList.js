@@ -1,5 +1,6 @@
 import {debugLog} from "./utils/log-utils.js";
 import {IpAddress} from "./utils/ip-utils.js";
+import {readConfig} from "./Config.js";
 
 export class IPList {
 
@@ -22,6 +23,25 @@ export class IPList {
     return Object.keys(this.#list.v6)
   }
 
+  static loadFromFile(path) {
+
+    const content = readConfig(path + '', true)
+    const that = new this()
+
+    const fill = (ips) => {
+
+      if (!Array.isArray(ips)) {
+        ips = []
+      }
+      return Object.fromEntries(ips.map((ip) => {
+        return [ip, true]
+      }))
+    }
+    that.#list.v4 = fill(content.ipV4)
+    that.#list.v6 = fill(content.ipV6)
+    return that
+  }
+
   /**
    * @param {IpAddress} ip
    * @return {boolean}
@@ -38,8 +58,8 @@ export class IPList {
   add(ip, banDuration) {
     debugLog(`Add ip ${ip} to blacklist.`);
     const now = this.getCurrentTimestamp()
-    if (ip.ipV4) this.#list.v4[ip.ipV4] = now + banDuration
-    if (ip.ipV6) this.#list.v6[ip.ipV6] = now + banDuration
+    if (ip.ipV4 && this.#list.v4[ip.ipV4] !== true) this.#list.v4[ip.ipV4] = now + banDuration
+    if (ip.ipV6 && this.#list.v6[ip.ipV6] !== true) this.#list.v6[ip.ipV6] = now + banDuration
     return this
   }
 

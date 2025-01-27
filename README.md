@@ -79,14 +79,29 @@ The application uses a JSON configuration file (`.env.json`). Below is an exampl
 
 ## API Endpoints
 
+### `/blacklist`
+
+### `/blacklist/json`
+
+- combine ipv4 and ipv6
+
 ### `/blacklist/v4`
 
 - Returns the list of blacklisted IPv4 addresses in `text/plain` format.
 - Each IP is suffixed with `/32`.
 
+### `/blacklist/v4/json`
+
+- Returns the list of blacklisted IPv4 addresses in `application/json` format.
+- Each IP is suffixed with `/32`.
+
 ### `/blacklist/v6`
 
 - Returns the list of blacklisted IPv6 addresses in `text/plain` format.
+
+### `/blacklist/v6/json`
+
+- Returns the list of blacklisted IPv6 addresses in `application/json` format.
 
 ---
 

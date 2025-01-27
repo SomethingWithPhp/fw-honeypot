@@ -1,8 +1,12 @@
+import {IPList} from '../src/IPList'
+
 export type HoneypotServerConfig = {
     banDurationMs?: number
     port?: number
     ipV4?: boolean
     ipV6?: boolean
+    blacklist: IPList
+    whitelist: IPList
 }
 
 
