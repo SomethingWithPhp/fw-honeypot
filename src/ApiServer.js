@@ -74,10 +74,11 @@ export class ApiServer {
    * @param {number} [port]
    * @return {ApiServer}
    */
-  listen(port) {
+  listen(port, host) {
     port ??= this.#honeypotServer.config.port
-    this.#server.listen(port, () => {
-      console.log(`[API-SERVER] listening on port ${port}`);
+    host ??= this.#honeypotServer.config.host
+    this.#server.listen(port, host, () => {
+      console.log(`[API-SERVER] listening on port ${host}:${port}`);
     });
     return this
   }

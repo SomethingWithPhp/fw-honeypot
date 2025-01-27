@@ -43,6 +43,7 @@ export class HoneypotTelnetServerIntegration extends AbstractHoneypotIntegration
      * @type {HoneypotServerConfig}
      */
     const config = mergeConfigs(honeypotServer.config, this.config)
+    this.config = config
 
     const server = net.createServer((socket) => {
 
@@ -88,8 +89,8 @@ export class HoneypotTelnetServerIntegration extends AbstractHoneypotIntegration
 
   listen() {
     this.#server
-      .listen(this.#config.port, () => {
-        console.log(`[Telnet] Honeypot is listening on port ${this.#config.port}`);
+      .listen(this.#config.port, this.#config.host, () => {
+        console.log(`[Telnet] Honeypot is listening on port ${this.#config.host}:${this.#config.port}`);
       })
       .on("error", (err) => {
         console.error(`[Telnet] Error: ${err.message}`);

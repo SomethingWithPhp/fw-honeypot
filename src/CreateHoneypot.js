@@ -6,6 +6,7 @@ import {mergeConfigs} from "./utils/config-utils.js";
 const DEFAULT_BAN_DURATION_MS = 60 * 60 * 24 * 1000
 const DEFAULT_API_SERVER_PORT = 3477
 const TICK_MS = 1000
+const DEFAULT_API_SERVER_HOST = '0.0.0.0'
 
 export class HoneypotServer {
 
@@ -22,6 +23,7 @@ export class HoneypotServer {
    */
   #config = {
     port: DEFAULT_API_SERVER_PORT,
+    host: DEFAULT_API_SERVER_HOST,
     banDurationMs: DEFAULT_BAN_DURATION_MS
   }
   #apiServer

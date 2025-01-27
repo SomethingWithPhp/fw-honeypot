@@ -41,6 +41,7 @@ export class HoneypotSmtpServerIntegration extends AbstractHoneypotIntegration {
      * @type {HoneypotServerConfig}
      */
     const config = mergeConfigs(honeypotServer.config, this.config)
+    this.config = config
 
     const server = new SMTPServer({
       name: 'mail.local',
@@ -78,8 +79,8 @@ export class HoneypotSmtpServerIntegration extends AbstractHoneypotIntegration {
 
   listen() {
     this.#server
-      .listen(this.#config.port, () => {
-        console.log(`[SMTP] Honeypot is listening on port ${this.#config.port}`);
+      .listen(this.#config.port, this.#config.host, () => {
+        console.log(`[SMTP] Honeypot is listening on port ${this.#config.host}:${this.#config.port}`);
       })
   }
 }
