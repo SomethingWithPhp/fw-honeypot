@@ -6,6 +6,7 @@ import {dirname, resolve} from 'path';
 import {HoneypotSmtpServerIntegration} from "./src/Integrations/HoneypotSmtpServerIntegration.js";
 import {HoneypotTelnetServerIntegration} from "./src/Integrations/HoneypotTelnetServerIntegration.js";
 import {HoneypotMySQLServerIntegration} from "./src/Integrations/HoneypotMySQLServerIntegration.js";
+import {HoneypotSMBServerIntegration} from "./src/Integrations/HoneypotSMBServerIntegration.js";
 
 const config = readConfig(resolve(dirname(fileURLToPath(import.meta.url)), '.env.json'))
 
@@ -13,7 +14,8 @@ const integrationMap = {
   HoneypotSshServerIntegration,
   HoneypotSmtpServerIntegration,
   HoneypotTelnetServerIntegration,
-  HoneypotMySQLServerIntegration
+  HoneypotMySQLServerIntegration,
+  HoneypotSMBServerIntegration
 }
 
 /**
